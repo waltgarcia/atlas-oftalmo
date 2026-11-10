@@ -3,90 +3,182 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Atlas de oftalmología · ENARM</title>
+<title>Atlas de oftalmología</title>
 <style>
-  :root{--bg:#0d1117;--panel:#161b22;--panel2:#1c2330;--line:#2b3444;--tx:#e6edf3;--dim:#8b98a9;
-        --acc:#D6007A;--acc2:#ff4fa3;--ok:#2ea043;--err:#f85149;--warn:#d29922;--blue:#388bfd}
+  :root{
+    --bg:#0f1011; --panel:#161718; --panel-2:#1b1d1f; --line:rgba(255,255,255,.08);
+    --line-strong:rgba(255,255,255,.14);
+    --tx:#e9e9e7; --tx-2:#a6abaf; --tx-3:#6f7478;
+    --acc:#d6007a;            /* acción primaria y selección, nada más */
+    --ann:#f0c05a;            /* amarillo de anotación: significa "etiqueta" */
+    --ok:#4ea36b; --err:#c4574f;
+    --r-ctrl:10px; --r-card:14px;
+  }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
-  header{position:sticky;top:0;z-index:20;display:flex;gap:10px;align-items:center;flex-wrap:wrap;
-         padding:10px 16px;background:var(--panel);border-bottom:1px solid var(--line)}
-  h1{font-size:15px;margin:0;font-weight:700}
-  h1 span{color:var(--acc)}
-  button{font:inherit;color:var(--tx);background:var(--panel2);border:1px solid var(--line);
-         border-radius:9px;padding:6px 13px;cursor:pointer}
-  button:hover{border-color:var(--acc)}
-  button.on{background:var(--acc);border-color:var(--acc);color:#fff}
-  .cont{padding:14px 16px 60px;max-width:1400px;margin:0 auto}
-  .grupo{margin:22px 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim)}
-  .tema{margin-bottom:22px}
-  .tema h2{font-size:15px;margin:0 0 8px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
-  .badge{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:1px 8px;color:var(--dim)}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
-  .thumb{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer}
-  .thumb img{width:100%;height:150px;object-fit:cover;display:block;background:#000}
-  .thumb .cap{padding:6px 8px;font-size:11px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .thumb:hover{border-color:var(--acc)}
-  /* lienzo con etiquetas */
-  .lienzo{position:relative;display:inline-block;line-height:0;background:#000;width:100%}
-  .lienzo img{display:block;width:100%;height:auto;max-height:76vh;object-fit:contain;margin:0 auto}
+  html,body{background:var(--bg)}
+  body{margin:0;color:var(--tx);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+       -webkit-font-smoothing:antialiased}
+  .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+
+  /* ---------- barra superior ---------- */
+  header{position:sticky;top:0;z-index:30;background:rgba(15,16,17,.94);
+         border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
+  .head{max-width:1440px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .marca{display:flex;align-items:center;gap:10px;font-weight:500;letter-spacing:-.01em}
+  .marca svg{color:var(--tx-2)}
+  .meta{font-size:12px;color:var(--tx-3);letter-spacing:.01em}
+  .nav{display:flex;gap:2px;margin-left:auto;background:var(--panel);border:1px solid var(--line);
+       border-radius:var(--r-ctrl);padding:2px}
+  .nav button{appearance:none;border:0;background:transparent;color:var(--tx-2);font:inherit;font-size:13px;
+       padding:6px 14px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:7px}
+  .nav button:hover{color:var(--tx)}
+  .nav button[aria-selected="true"]{background:var(--panel-2);color:var(--tx);box-shadow:inset 0 0 0 1px var(--line-strong)}
+  .nav svg{opacity:.75}
+
+  .inter{display:flex;align-items:center;gap:10px}
+  .switch{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--tx-2);cursor:pointer;
+          user-select:none;background:transparent;border:0;font-family:inherit;padding:4px}
+  .switch .pista{width:30px;height:18px;border-radius:9px;background:var(--panel-2);
+       border:1px solid var(--line-strong);position:relative;transition:background .15s}
+  .switch .pista::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;
+       background:var(--tx-3);transition:transform .15s,background .15s}
+  .switch[aria-checked="true"] .pista{background:rgba(240,192,90,.18);border-color:rgba(240,192,90,.5)}
+  .switch[aria-checked="true"] .pista::after{transform:translateX(12px);background:var(--ann)}
+
+  /* ---------- contenido ---------- */
+  main{max-width:1440px;margin:0 auto;padding:24px 24px 80px}
+  .grupo{margin:32px 0 12px;font-size:12px;color:var(--tx-3)}
+  .grupo:first-child{margin-top:8px}
+  .tema{margin-bottom:28px}
+  .tema h2{font-size:15px;font-weight:500;margin:0 0 10px;display:flex;gap:10px;align-items:baseline}
+  .tema h2 .cuenta{font-size:11px;color:var(--tx-3);letter-spacing:.02em}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:12px}
+  .thumb{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden;
+         cursor:pointer;padding:0;text-align:left;color:inherit;font:inherit;transition:border-color .15s}
+  .thumb:hover{border-color:var(--line-strong)}
+  .thumb img{width:100%;height:148px;object-fit:cover;display:block;background:#000}
+  .thumb .cap{padding:8px 10px;font-size:11.5px;color:var(--tx-3);display:flex;justify-content:space-between;gap:8px}
+  .thumb .cap span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .thumb .cap .anot{color:rgba(240,192,90,.85);flex:0 0 auto}
+
+  /* ---------- lienzo con etiquetas ---------- */
+  .lienzo{position:relative;display:block;background:#000;border-radius:var(--r-card);overflow:hidden;line-height:0}
+  .lienzo img{display:block;width:100%;height:auto;max-height:74vh;object-fit:contain;margin:0 auto}
   .lienzo svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
-  .et{position:absolute;transform:translate(-50%,-100%);background:rgba(13,17,23,.92);
-      border:1px solid var(--warn);color:#ffe9a8;border-radius:7px;padding:2px 7px;font-size:11px;
-      white-space:nowrap;pointer-events:auto;cursor:pointer;line-height:1.3}
-  .et.verde{border-color:#31c48d;color:#b7f5dd}
-  .et.azul{border-color:#6d8cff;color:#cfdcff}
-  .et.rosa{border-color:#ff4fa3;color:#ffd0e6}
-  .et .x{color:var(--err);font-weight:700;margin-left:6px}
-  .et.edit{cursor:crosshair}
-  .lienzo.editando{cursor:crosshair;outline:2px dashed var(--acc);outline-offset:-2px}
-  /* lightbox */
-  .lb{position:fixed;inset:0;background:rgba(5,8,12,.95);z-index:50;display:none;overflow:auto;padding:20px}
-  .lb.on{display:block}
-  .lb .caja{max-width:1100px;margin:0 auto;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-  .lb .txt{padding:14px 18px}
-  .lb .cred{font-size:11px;color:var(--dim);margin-top:8px;word-break:break-word}
-  ul.claves{margin:8px 0 0;padding-left:20px}
-  ul.claves li{margin-bottom:6px}
-  .trampa{margin-top:10px;background:#2a1220;border-left:3px solid var(--acc);padding:8px 12px;border-radius:8px;font-size:13px}
-  .cerrar{float:right}
-  /* estudiar */
-  .est{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:start}
-  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-  .chips button{font-size:12px;padding:4px 10px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
-  .card h3{margin:0 0 8px;font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
-  .nav{display:flex;gap:8px;justify-content:space-between;margin-top:10px;align-items:center}
-  .barra{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
-  .barra button{font-size:12px;padding:4px 10px}
-  /* examen */
-  .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-  .opts button{text-align:left;padding:10px 12px}
-  .opts button.ok{background:#0f2f1b;border-color:var(--ok)}
-  .opts button.mal{background:#3a1216;border-color:var(--err)}
-  .prog{font-size:12px;color:var(--dim)}
-  .res{font-size:22px;font-weight:700}
-  @media(max-width:820px){ .est{grid-template-columns:1fr} .opts{grid-template-columns:1fr} }
+  .lienzo.editando{cursor:crosshair}
+  .et{position:absolute;transform:translate(-50%,-100%);background:rgba(12,13,14,.94);
+      border:1px solid rgba(240,192,90,.65);color:#f4dfa8;border-radius:6px;padding:2px 7px;
+      font-size:11px;white-space:nowrap;pointer-events:auto;cursor:default;line-height:1.35;
+      box-shadow:0 1px 0 rgba(0,0,0,.4)}
+  .et .x{color:var(--err);font-weight:500;margin-left:6px;cursor:pointer}
+  .lienzo.editando .et{cursor:pointer}
+
+  /* ---------- lightbox ---------- */
+  .lb{position:fixed;inset:0;background:rgba(8,9,10,.96);z-index:60;display:none;overflow:auto;padding:24px}
+  .lb[data-open="1"]{display:block}
+  .lb .caja{max-width:1080px;margin:0 auto;background:var(--panel);border:1px solid var(--line);
+            border-radius:var(--r-card);overflow:hidden}
+  .lb .txt{padding:16px 20px 20px}
+  .lb .fila{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+  .lb h3{margin:0;font-size:16px;font-weight:500}
+  .lb .sub{color:var(--tx-3);font-size:12px;margin-top:2px}
+  .acciones{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{appearance:none;font:inherit;font-size:13px;color:var(--tx);background:var(--panel-2);
+       border:1px solid var(--line-strong);border-radius:var(--r-ctrl);padding:6px 12px;cursor:pointer;
+       display:inline-flex;align-items:center;gap:7px}
+  .btn:hover{border-color:rgba(255,255,255,.24)}
+  .btn.primario{background:var(--acc);border-color:var(--acc);color:#fff}
+  .btn.primario:hover{filter:brightness(1.06)}
+  .btn.quieto{background:transparent;border-color:transparent;color:var(--tx-2)}
+  .btn.quieto:hover{color:var(--tx);border-color:var(--line)}
+
+  ul.hallazgos{margin:14px 0 0;padding:0;list-style:none;max-width:80ch}
+  ul.hallazgos li{position:relative;padding-left:16px;margin-bottom:7px;color:var(--tx);font-size:14px}
+  ul.hallazgos li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:1px;background:var(--line-strong)}
+  .trampa{margin-top:14px;border-left:1px solid rgba(240,192,90,.55);padding:2px 0 2px 12px;font-size:13.5px;color:var(--tx-2)}
+  .trampa b{color:var(--tx);font-weight:500}
+  .cred{margin-top:14px;font-size:11.5px;color:var(--tx-3);line-height:1.5;word-break:break-word}
+  .cred a{color:var(--tx-2)}
+
+  /* ---------- estudiar ---------- */
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+  .chip{appearance:none;font:inherit;font-size:12.5px;color:var(--tx-2);background:transparent;
+        border:1px solid var(--line);border-radius:999px;padding:4px 12px;cursor:pointer;white-space:nowrap}
+  .chip:hover{color:var(--tx);border-color:var(--line-strong)}
+  .chip[aria-pressed="true"]{color:var(--tx);border-color:var(--line-strong);background:var(--panel)}
+  .est{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:24px;align-items:start}
+  .barra{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+  .navpar{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+  .navpar .pos{font-size:12px;color:var(--tx-3)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-card);padding:18px 20px}
+  .card h4{margin:0 0 6px;font-size:12px;font-weight:400;color:var(--tx-3)}
+
+  /* ---------- examen ---------- */
+  .prog{font-size:12px;color:var(--tx-3);margin-bottom:10px}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+  .opts button{appearance:none;font:inherit;font-size:14px;text-align:left;color:var(--tx);
+        background:var(--panel-2);border:1px solid var(--line-strong);border-radius:var(--r-ctrl);
+        padding:11px 14px;cursor:pointer}
+  .opts button:hover:not(:disabled){border-color:rgba(255,255,255,.26)}
+  .opts button:disabled{cursor:default;opacity:.85}
+  .opts button.ok{border-color:var(--ok);background:rgba(78,163,107,.12)}
+  .opts button.mal{border-color:var(--err);background:rgba(196,87,79,.12)}
+  .preg{font-size:15px;font-weight:500;margin:14px 0 0}
+  .fb{margin-top:14px;font-size:14px}
+  .fb .titulo{font-weight:500}
+  .fb .titulo.ok{color:#7cc798}
+  .fb .titulo.mal{color:#e08a83}
+  .res{font-size:28px;font-weight:500;letter-spacing:-.02em}
+  .vacio{color:var(--tx-3);font-size:13px}
+
+  :focus-visible{outline:2px solid rgba(240,192,90,.7);outline-offset:2px;border-radius:6px}
+  @media(max-width:760px){
+    .est{grid-template-columns:1fr}
+    .opts{grid-template-columns:1fr}
+    .head{padding:12px 16px;gap:12px}
+    main{padding:16px 16px 64px}
+    .nav{order:3;width:100%;justify-content:space-between}
+  }
 </style>
 </head>
 <body>
 <header>
-  <h1>👁️ Atlas de oftalmología <span>·</span> ENARM</h1>
-  <div style="flex:1"></div>
-  <button id="t_gal" class="on" onclick="vista('gal')">🖼 Galería</button>
-  <button id="t_est" onclick="vista('est')">📚 Estudiar</button>
-  <button id="t_exa" onclick="vista('exa')">📝 Examen</button>
-  <button id="btnEtiq" onclick="alternarEtiquetas()">🏷 Etiquetas: ON</button>
-  <span id="info" class="badge"></span>
+  <div class="head">
+    <div class="marca">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+           stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle>
+        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path></svg>
+      Atlas de oftalmología
+    </div>
+    <div class="meta mono" id="info"></div>
+    <nav class="nav" role="tablist">
+      <button id="t_gal" role="tab" aria-selected="true" onclick="vista('gal')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+             stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+          <rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+          <rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>Galería</button>
+      <button id="t_est" role="tab" aria-selected="false" onclick="vista('est')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+             stroke-linecap="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v16H6.5A2.5 2.5 0 0 0 4 21.5z"></path>
+          <path d="M4 18.5h15"></path></svg>Estudiar</button>
+      <button id="t_exa" role="tab" aria-selected="false" onclick="vista('exa')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+             stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"></path>
+          <path d="M8 9h7M8 13h5"></path></svg>Examen</button>
+    </nav>
+    <button class="switch" id="btnEtiq" role="switch" aria-checked="true" onclick="alternarEtiquetas()">
+      <span class="pista"></span><span>Etiquetas</span>
+    </button>
+  </div>
 </header>
 
-<div class="cont">
+<main>
   <div id="gal"></div>
-  <div id="est" style="display:none"></div>
-  <div id="exa" style="display:none"></div>
-</div>
+  <div id="est" hidden></div>
+  <div id="exa" hidden></div>
+</main>
 
-<div class="lb" id="lb" onclick="if(event.target.id==='lb')cerrarLb()">
+<div class="lb" id="lb" data-open="0" onclick="if(event.target.id==='lb')cerrarLb()">
   <div class="caja" id="lbCaja"></div>
 </div>
 
@@ -97,7 +189,6 @@ let EDIT = false, LB_IMG = null;
 
 const $ = id => document.getElementById(id);
 const esc = s => (s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const COLORES = ['#ffd166', '#31c48d', '#6d8cff', '#ff4fa3'];
 
 async function api(ruta, datos){
   const o = datos ? {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(datos)} : {};
@@ -106,9 +197,8 @@ async function api(ruta, datos){
 
 async function cargar(){
   DATOS = await api('/api/datos');
-  $('info').textContent = (DATOS.total_imagenes||0) + ' imágenes · ' + DATOS.temas.length + ' temas';
-  $('btnEtiq').textContent = '🏷 Etiquetas: ' + (ETIQ_ON ? 'ON' : 'OFF');
-  $('btnEtiq').classList.toggle('on', ETIQ_ON);
+  $('info').textContent = DATOS.temas.length + ' temas · ' + (DATOS.total_imagenes||0) + ' imágenes';
+  $('btnEtiq').setAttribute('aria-checked', ETIQ_ON ? 'true' : 'false');
   pintarGaleria();
   if (TEMA_SEL) pintarEstudiar();
 }
@@ -116,18 +206,20 @@ async function cargar(){
 function alternarEtiquetas(){
   ETIQ_ON = !ETIQ_ON;
   localStorage.setItem('atlas_etiq', ETIQ_ON ? '1' : '0');
-  $('btnEtiq').textContent = '🏷 Etiquetas: ' + (ETIQ_ON ? 'ON' : 'OFF');
-  $('btnEtiq').classList.toggle('on', ETIQ_ON);
-  pintarGaleria();
-  if (TEMA_SEL) pintarEstudiar();
+  $('btnEtiq').setAttribute('aria-checked', ETIQ_ON ? 'true' : 'false');
   if (LB_IMG) abrirLb(LB_IMG.tema, LB_IMG.i);
+  else if (TEMA_SEL && !$('est').hidden) pintarEstudiar();
+  pintarGaleria();
 }
 
 function vista(v){
-  ['gal','est','exa'].forEach(x => $('t_'+x).classList.toggle('on', x === v));
-  $('gal').style.display = v === 'gal' ? '' : 'none';
-  $('est').style.display = v === 'est' ? '' : 'none';
-  $('exa').style.display = v === 'exa' ? '' : 'none';
+  ['gal','est','exa'].forEach(x => {
+    $('t_'+x).setAttribute('aria-selected', x === v ? 'true' : 'false');
+    $('t_'+x).querySelector('svg').style.opacity = x === v ? '1' : '.75';
+  });
+  $('gal').hidden = v !== 'gal';
+  $('est').hidden = v !== 'est';
+  $('exa').hidden = v !== 'exa';
   if (v === 'est') { if (!TEMA_SEL && DATOS.temas.length) TEMA_SEL = DATOS.temas[0].nombre; pintarEstudiar(); }
   if (v === 'exa' && !EXAMEN) nuevoExamen();
 }
@@ -137,15 +229,17 @@ function pintarGaleria(){
   let grupo = '', h = '';
   for (const t of DATOS.temas){
     if (t.grupo !== grupo){ grupo = t.grupo; h += `<div class="grupo">${esc(grupo)}</div>`; }
-    h += `<div class="tema"><h2>${esc(t.nombre)} <span class="badge">${t.imagenes.length} imágenes</span></h2><div class="grid">` +
+    h += `<section class="tema"><h2>${esc(t.nombre)}
+            <span class="cuenta mono">${t.imagenes.length}</span></h2><div class="grid">` +
       t.imagenes.map((im,i) => {
         const n = (im.etiquetas||[]).length;
-        return `<div class="thumb" onclick="abrirLb('${encodeURIComponent(t.nombre)}',${i})">
+        return `<button class="thumb" onclick="abrirLb('${encodeURIComponent(t.nombre)}',${i})">
           <img src="/imagenes/${encodeURI(im.archivo.split('/').slice(1).join('/'))}" loading="lazy" alt="">
-          <div class="cap">${esc(im.titulo)}${n ? ' · 🏷'+n : ''}</div></div>`;
-      }).join('') + `</div></div>`;
+          <div class="cap"><span>${esc(im.titulo)}</span>${n ? `<span class="anot mono">${n}</span>` : ''}</div>
+        </button>`;
+      }).join('') + `</div></section>`;
   }
-  $('gal').innerHTML = h || '<div class="card">No hay imágenes.</div>';
+  $('gal').innerHTML = h || '<p class="vacio">No hay imágenes todavía.</p>';
 }
 
 /* ---------------------------------------------------------------- etiquetas */
@@ -166,28 +260,26 @@ function pintarFlechas(slot){
   if (!w || !h) return;
   svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
   svg.innerHTML = '';
-  // quitar chips previos
   lienzo.querySelectorAll('.et').forEach(e => e.remove());
   if (!ETIQ_ON) return;
   const im = imagenActual(); if (!im) return;
 
   (im.etiquetas || []).forEach((e, idx) => {
     const px = e.x * w, py = e.y * h;
-    // la etiqueta se separa del punto para que la flecha se vea; se escalona para no encimarse
     const arriba = py > 90;
     const salto = 58 + (idx % 2) * 18;
-    const ly = arriba ? py - salto : py + salto;
+    const ly = Math.min(Math.max(arriba ? py - salto : py + salto, 18), h - 6);
     const desliz = ((idx % 3) - 1) * 46;
     const lx = Math.min(Math.max(px + desliz, 52), w - 52);
+
     const chip = document.createElement('div');
-    chip.className = 'et ' + (['', 'verde', 'azul', 'rosa'][idx % 4]);
+    chip.className = 'et';
     chip.style.left = lx + 'px';
     chip.style.top = ly + 'px';
-    chip.innerHTML = esc(e.texto) + (EDIT ? ` <span class="x" title="borrar">✕</span>` : '');
+    chip.innerHTML = esc(e.texto) + (EDIT ? ' <span class="x" title="borrar">✕</span>' : '');
     chip.onclick = (ev) => { ev.stopPropagation(); if (EDIT) borrarEtiqueta(e.id); };
     lienzo.appendChild(chip);
 
-    // linea desde la etiqueta hasta el punto + punta de flecha en el punto
     const x1 = lx, y1 = ly + (arriba ? 4 : -12);
     const ang = Math.atan2(py - y1, px - x1);
     const L = 7, Wd = 3.4;
@@ -195,11 +287,11 @@ function pintarFlechas(slot){
     const p1y = py - L * Math.sin(ang) - Wd * Math.cos(ang);
     const p2x = px - L * Math.cos(ang) - Wd * Math.sin(ang);
     const p2y = py - L * Math.sin(ang) + Wd * Math.cos(ang);
-    const flecha = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    flecha.innerHTML = `
-      <line x1="${x1}" y1="${y1}" x2="${px}" y2="${py}" stroke="#ffd166" stroke-width="1.7" opacity="0.95"/>
-      <polygon points="${px},${py} ${p1x},${p1y} ${p2x},${p2y}" fill="#ffd166"/>`;
-    svg.appendChild(flecha);
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.innerHTML = `
+      <line x1="${x1}" y1="${y1}" x2="${px}" y2="${py}" stroke="#f0c05a" stroke-width="1.2" opacity=".9"/>
+      <polygon points="${px},${py} ${p1x},${p1y} ${p2x},${p2y}" fill="#f0c05a"/>`;
+    svg.appendChild(g);
   });
 
   if (EDIT){
@@ -208,7 +300,7 @@ function pintarFlechas(slot){
       const x = (ev.clientX - r.left) / r.width;
       const y = (ev.clientY - r.top) / r.height;
       if (x < 0 || x > 1 || y < 0 || y > 1) return;
-      const texto = prompt('Texto de la etiqueta (ej. "papila borrosa", "hemorragia en llama"):');
+      const texto = prompt('Texto de la etiqueta (papila, hemorragia en llama, exudado duro):');
       if (!texto) return;
       agregarEtiqueta(im.id, x, y, texto);
     };
@@ -243,24 +335,24 @@ function abrirLb(nombre, i){
   $('lbCaja').innerHTML = `
     ${lienzoHTML(im, EDIT, 'lb')}
     <div class="txt">
-      <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap">
-        <div><b>${esc(t.nombre)}</b> <span class="badge">${esc(t.grupo)}</span></div>
-        <div class="barra" style="margin:0">
-          <button onclick="toggleEdit()">${EDIT ? '✅ Terminar etiquetas' : '✏️ Agregar etiquetas'}</button>
-          <button onclick="cerrarLb()">✕ Cerrar</button>
+      <div class="fila">
+        <div><h3>${esc(t.nombre)}</h3><div class="sub">${esc(t.grupo)}</div></div>
+        <div class="acciones">
+          <button class="btn" onclick="toggleEdit()">${EDIT ? 'Terminar etiquetas' : 'Agregar etiquetas'}</button>
+          <button class="btn quieto" onclick="cerrarLb()">Cerrar</button>
         </div>
       </div>
-      <ul class="claves">${(t.claves||[]).map(c => `<li>${esc(c)}</li>`).join('')}</ul>
-      ${t.trampa ? `<div class="trampa">⚠️ <b>Trampa de examen:</b> ${esc(t.trampa)}</div>` : ''}
-      <div class="cred">📷 ${esc(im.titulo)} — ${esc(im.autor || 'autor no indicado')} · ${esc(im.licencia||'')}
-        ${im.fuente ? `<br><a style="color:#6d8cff" href="${esc(im.fuente)}" target="_blank">ver en Wikimedia Commons</a>` : ''}</div>
+      <ul class="hallazgos">${(t.claves||[]).map(c => `<li>${esc(c)}</li>`).join('')}</ul>
+      ${t.trampa ? `<div class="trampa"><b>Trampa de examen.</b> ${esc(t.trampa)}</div>` : ''}
+      <div class="cred">Foto: ${esc(im.titulo)} — ${esc(im.autor || 'autor no indicado')} · ${esc(im.licencia||'')}
+        ${im.fuente ? ` · <a href="${esc(im.fuente)}" target="_blank" rel="noopener">Wikimedia Commons</a>` : ''}</div>
     </div>`;
-  $('lb').classList.add('on');
+  $('lb').dataset.open = '1';
   setTimeout(() => pintarFlechas('lb'), 40);
 }
 
 function toggleEdit(){ EDIT = !EDIT; if (LB_IMG) abrirLb(LB_IMG.tema, LB_IMG.i); else pintarEstudiar(); }
-function cerrarLb(){ $('lb').classList.remove('on'); $('lbCaja').innerHTML = ''; LB_IMG = null; }
+function cerrarLb(){ $('lb').dataset.open = '0'; $('lbCaja').innerHTML = ''; LB_IMG = null; }
 
 /* ---------------------------------------------------------------- estudiar */
 function pintarEstudiar(){
@@ -269,29 +361,30 @@ function pintarEstudiar(){
   if (IDX >= t.imagenes.length) IDX = 0;
   const im = t.imagenes[IDX];
   $('est').innerHTML = `
-    <div class="chips">${DATOS.temas.map(x =>
-      `<button class="${x.nombre===t.nombre?'on':''}" onclick="TEMA_SEL=${JSON.stringify(x.nombre)};IDX=0;pintarEstudiar()">${esc(x.nombre.split('(')[0].trim())}</button>`).join('')}</div>
+    <div class="barra" style="margin-bottom:16px">
+      <select id="selTema" onchange="TEMA_SEL=this.value;IDX=0;pintarEstudiar()"
+              style="font:inherit;font-size:13.5px;color:var(--tx);background:var(--panel);
+                     border:1px solid var(--line-strong);border-radius:10px;padding:7px 12px;min-width:280px">
+        ${DATOS.temas.map(x => `<option ${x.nombre===t.nombre?'selected':''} value="${esc(x.nombre)}">${esc(x.nombre)}</option>`).join('')}
+      </select>
+      <span class="meta mono">${IDX+1} / ${t.imagenes.length}</span>
+      <span style="flex:1"></span>
+      <button class="btn" onclick="toggleEdit()">${EDIT ? 'Terminar etiquetas' : 'Agregar etiquetas'}</button>
+    </div>
     <div class="est">
       <div>
-        <div class="barra">
-          <button onclick="toggleEdit()">${EDIT ? '✅ Terminar etiquetas' : '✏️ Agregar etiquetas'}</button>
-          <button onclick="alternarEtiquetas()">🏷 Etiquetas: ${ETIQ_ON?'ON':'OFF'}</button>
-        </div>
         ${lienzoHTML(im, EDIT, 'est')}
-        <div class="nav">
-          <button onclick="IDX=(IDX-1+${t.imagenes.length})%${t.imagenes.length};pintarEstudiar()">← anterior</button>
-          <span class="badge">${IDX+1} / ${t.imagenes.length}</span>
-          <button onclick="IDX=(IDX+1)%${t.imagenes.length};pintarEstudiar()">siguiente →</button>
+        <div class="navpar">
+          <button class="btn quieto" onclick="IDX=(IDX-1+${t.imagenes.length})%${t.imagenes.length};pintarEstudiar()">Anterior</button>
+          <button class="btn quieto" onclick="IDX=(IDX+1)%${t.imagenes.length};pintarEstudiar()">Siguiente</button>
         </div>
       </div>
       <div class="card">
-        <h3>${esc(t.grupo)}</h3>
-        <div style="font-size:16px;font-weight:700;margin-bottom:8px">${esc(t.nombre)}</div>
-        <ul class="claves">${(t.claves||[]).map(c => `<li>${esc(c)}</li>`).join('')}</ul>
-        ${t.trampa ? `<div class="trampa">⚠️ <b>Trampa de examen:</b> ${esc(t.trampa)}</div>` : ''}
-        <div class="cred" style="font-size:11px;color:var(--dim);margin-top:10px">
-          📷 ${esc(im.titulo)} — ${esc(im.autor||'')} · ${esc(im.licencia||'')}
-        </div>
+        <h4>${esc(t.grupo)}</h4>
+        <div style="font-size:16px;font-weight:500;margin-bottom:4px">${esc(t.nombre)}</div>
+        <ul class="hallazgos">${(t.claves||[]).map(c => `<li>${esc(c)}</li>`).join('')}</ul>
+        ${t.trampa ? `<div class="trampa"><b>Trampa de examen.</b> ${esc(t.trampa)}</div>` : ''}
+        <div class="cred">Foto: ${esc(im.titulo)} — ${esc(im.autor||'')} · ${esc(im.licencia||'')}</div>
       </div>
     </div>`;
   setTimeout(() => pintarFlechas('est'), 60);
@@ -302,9 +395,9 @@ window.addEventListener('resize', () => pintarFlechas());
 /* ---------------------------------------------------------------- examen */
 async function nuevoExamen(){
   RESP = null; I_EXA = 0; ACIERTOS = 0; EXAMEN = null;
-  $('exa').innerHTML = '<div class="card">Cargando examen…</div>';
+  $('exa').innerHTML = '<p class="vacio">Cargando…</p>';
   const d = await api('/api/examen?n=10');
-  if (d.error){ $('exa').innerHTML = `<div class="card">${esc(d.error)}</div>`; return; }
+  if (d.error){ $('exa').innerHTML = `<p class="vacio">${esc(d.error)}</p>`; return; }
   EXAMEN = d.preguntas; pintarPregunta();
 }
 
@@ -312,13 +405,15 @@ function pintarPregunta(){
   if (I_EXA >= EXAMEN.length) return pintarResultado();
   const p = EXAMEN[I_EXA];
   $('exa').innerHTML = `<div class="card">
-      <div class="prog">Pregunta ${I_EXA+1} de ${EXAMEN.length} · aciertos ${ACIERTOS}</div>
-      <div class="lienzo"><img src="/imagenes/${encodeURI(p.imagen.split('/').slice(1).join('/'))}"
-           style="width:100%;max-height:60vh;object-fit:contain;border-radius:10px;background:#000;margin-top:8px"></div>
-      <div style="margin-top:10px;font-weight:600">¿Cuál es el diagnóstico?</div>
+      <div class="prog mono">${I_EXA+1} / ${EXAMEN.length} · ${ACIERTOS} correctas</div>
+      <div class="lienzo" style="background:#000">
+        <img src="/imagenes/${encodeURI(p.imagen.split('/').slice(1).join('/'))}" alt=""
+             style="width:100%;max-height:58vh;object-fit:contain">
+      </div>
+      <div class="preg">¿Cuál es el diagnóstico?</div>
       <div class="opts" id="opts">${p.opciones.map((o,i) =>
         `<button onclick="responder(${i})">${esc(o)}</button>`).join('')}</div>
-      <div id="fb" style="margin-top:10px"></div>
+      <div class="fb" id="fb"></div>
     </div>`;
 }
 
@@ -333,10 +428,9 @@ function responder(i){
     b.disabled = true;
   });
   const tema = DATOS.temas.find(t => t.nombre === p.correcta) || {};
-  $('fb').innerHTML = `<div style="font-weight:700;color:${bien?'var(--ok)':'var(--err)'}">
-      ${bien ? '✅ Correcto' : '❌ Era: ' + esc(p.correcta)}</div>
-    ${tema.trampa ? `<div class="trampa">⚠️ ${esc(tema.trampa)}</div>` : ''}
-    <button style="margin-top:10px" onclick="siguiente()">Siguiente →</button>`;
+  $('fb').innerHTML = `<div class="titulo ${bien?'ok':'mal'}">${bien ? 'Correcto' : 'Era ' + esc(p.correcta)}</div>
+    ${tema.trampa ? `<div class="trampa">${esc(tema.trampa)}</div>` : ''}
+    <p><button class="btn" onclick="siguiente()">Siguiente</button></p>`;
 }
 
 function siguiente(){ I_EXA++; RESP = null; pintarPregunta(); }
@@ -344,12 +438,12 @@ function siguiente(){ I_EXA++; RESP = null; pintarPregunta(); }
 function pintarResultado(){
   const pct = Math.round(ACIERTOS / EXAMEN.length * 100);
   $('exa').innerHTML = `<div class="card">
-    <div class="res">${ACIERTOS} / ${EXAMEN.length} · ${pct}%</div>
-    <p style="color:var(--dim)">${pct >= 80 ? 'Vas bien: ya distingues los cuadros.' :
-      pct >= 60 ? 'Vas en zona de aprobado, pero hay temas que se confunden.' :
-      'Flojo: repite la galería de los temas que fallaste.'}</p>
-    <button class="on" onclick="nuevoExamen()">🔁 Otro examen</button>
-    <button onclick="vista('gal')">Ver galería</button></div>`;
+    <div class="res mono">${ACIERTOS} / ${EXAMEN.length} · ${pct}%</div>
+    <p style="color:var(--tx-2);max-width:60ch">${pct >= 80 ? 'Distingues los cuadros. Sube la dificultad con temas que aún no has leído.'
+      : pct >= 60 ? 'Zona de aprobado, pero hay diagnósticos que se te confunden.'
+      : 'Flojo: vuelve a la galería de los temas que fallaste antes de repetir el examen.'}</p>
+    <p><button class="btn primario" onclick="nuevoExamen()">Otro examen</button>
+       <button class="btn quieto" onclick="vista('gal')">Ver galería</button></p></div>`;
 }
 
 cargar();
