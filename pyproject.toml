@@ -1,0 +1,21 @@
+[project]
+name = "atlas-oftalmo"
+version = "1.0.0"
+description = "Local ophthalmology study atlas: curated fundus and anterior-segment images, clinical key points, and a quiz — built for ENARM-style review"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+qc = ["pillow>=9"]
+
+[project.scripts]
+atlas-serve = "app:main"
+atlas-curar = "curar:main"
+atlas-qc = "qc_hojas:main"
+
+[project.urls]
+Homepage = "https://github.com/waltgarcia/atlas-oftalmo"
+
+[tool.setuptools]
+py-modules = ["app", "curar", "qc_hojas", "refill"]

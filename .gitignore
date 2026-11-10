@@ -1,0 +1,16 @@
+# datos locales
+imagenes/
+atlas.db
+atlas.db-wal
+atlas.db-shm
+_qc/
+__pycache__/
+*.pyc
+*.log
+*.bak
+*.bak.py
+README_v0_es.md
+curar_texto.bak.py
+
+# respaldos locales
+sitio/*.bak.html

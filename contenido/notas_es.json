@@ -1,0 +1,213 @@
+{
+ "Fondo de ojo normal": {
+  "grupo": "Fundoscopía",
+  "claves": [
+   "Papila: bordes nítidos, color amarillo-naranja, excavación < 0.4.",
+   "Relación arteria/vena 2:3; las venas son más gruesas y oscuras.",
+   "Mácula en el centro, sin vasos, con reflejo foveal puntiforme.",
+   "Retina adherida hasta la ora serrata, sin hemorragias ni exudados."
+  ],
+  "trampa": "Si la papila se ve borrosa, primero descarta que no sea la foto; después piensa papiledema o neuritis."
+ },
+ "Retinopatía diabética": {
+  "grupo": "Fundoscopía",
+  "claves": [
+   "No proliferativa: microaneurismas, hemorragias en punto/mancha, exudados duros, manchas algodonosas.",
+   "Proliferativa: neovasos en papila o periferia, hemorragia prerretiniana, desprendimiento traccional.",
+   "El edema macular es la causa más frecuente de pérdida visual (no los neovasos).",
+   "Tamizaje: fondo de ojo anual desde el diagnóstico de DM2; en DM1 a los 5 años."
+  ],
+  "trampa": "Preguntan qué la clasifica: la presencia de neovasos es lo que la vuelve proliferativa, no la cantidad de hemorragias."
+ },
+ "Retinopatía diabética en primer nivel": {
+  "grupo": "Fundoscopía",
+  "claves": [
+   "En primer nivel: clasificar en 'sin retinopatía / no proliferativa / proliferativa' y referir.",
+   "Edema macular sospechado por pérdida de agudeza: referir a oftalmología el mismo día.",
+   "Control de HbA1c, TA y lípidos es parte del tratamiento, no un extra.",
+   "La fotografía de fondo de ojo con cámara no midriática es el tamizaje válido en la unidad."
+  ],
+  "trampa": "El error clásico: mandar al paciente 'en un año' cuando ya tiene edema macular o neovasos."
+ },
+ "Oclusión venosa de la retina": {
+  "grupo": "Fundoscopía",
+  "claves": [
+   "Central: hemorragias difusas en 'llama' en los 4 cuadrantes, venas dilatadas y tortuosas, papila edematosa.",
+   "De rama: las mismas lesiones pero limitadas a un sector, con el territorio respetado sano.",
+   "Factores: edad, HTA, diabetes, glaucoma, hiperviscosidad, trombofilia.",
+   "Complicaciones: edema macular (causa de baja visual) y glaucoma neovascular si hay isquemia extensa.",
+   "Tratamiento: anti-VEGF para el edema macular + control del factor de riesgo; la anticoagulación no es rutina."
+  ],
+  "trampa": "Central vs rama es la pregunta de oro: mira si el otro hemisferio está limpio. Y no confundas con oclusión arterial."
+ },
+ "Oclusión arterial de la retina": {
+  "grupo": "Fundoscopía",
+  "claves": [
+   "Retina pálida y opaca con mancha rojo cereza en la mácula.",
+   "Pérdida visual súbita, indolora y profunda (cuenta dedos o menos).",
+   "Es un 'equivalente de EVC': buscar fuente embólica (carótida, corazón, fibrilación auricular).",
+   "Urgencia: masaje ocular, reducir presión intraocular y valorar en las primeras horas."
+  ],
+  "trampa": "La mancha rojo cereza es el signo del examen; la oclusión venosa NO la tiene (ahí hay hemorragias)."
+ },
+ "Retinopatía hipertensiva": {
+  "grupo": "Fundoscopía",
+  "claves": [
+   "Cambios crónicos: arterias en 'hilo de plata/cobre', cruces arteriovenosos, exudados duros en estrella macular.",
+   "Maligno: hemorragias, manchas algodonosas y papiledema.",
+   "Papiledema: papila elevada, bordes difusos, venas ingurgitadas, pérdida de pulso venoso.",
+   "El papiledema es bilateral y respeta la visión hasta etapas tardías (la neuritis óptica duele y baja la visión)."
+  ],
+  "trampa": "Fotografía de fondo de ojo con TA 200/120 y papiledema: es urgencia hipertensiva, no 'solo cefalea'."
+ },
+ "Glaucoma (excavación papilar)": {
+  "grupo": "Fundoscopía",
+  "claves": [
+   "Excavación papilar aumentada (> 0.5-0.6), adelgazamiento del anillo neurorretiniano, vasos en bayoneta.",
+   "Pérdida de campo visual periférica (nasal escalonada) antes de la visión central.",
+   "Ángulo abierto: crónico, asintomático, PIO elevada o 'normotensivo'.",
+   "Tratamiento escalonado: análogo de prostaglandina → betabloqueador → inhibidor de anhidrasa carbónica."
+  ],
+  "trampa": "Copa grande no es sinónimo de glaucoma: importa la relación copa/disco y la asimetría entre ojos."
+ },
+ "Degeneración macular (DMAE)": {
+  "grupo": "Fundoscopía",
+  "claves": [
+   "Seca: drusas amarillas, atrofia del epitelio pigmentario, metamorfopsia leve.",
+   "Húmeda: neovascularización coroidea, hemorragia subretiniana, líquido, metamorfopsia marcada y baja visual rápida.",
+   "Primer estudio: rejilla de Amsler (líneas torcidas = húmeda, referir urgente).",
+   "La húmeda se trata con anti-VEGF; la seca con suplementos en formas intermedias."
+  ],
+  "trampa": "Metamorfopsia de instalación rápida = DMAE húmeda, aunque la agudeza aún sea buena."
+ },
+ "Desprendimiento de retina": {
+  "grupo": "Fundoscopía",
+  "claves": [
+   "Regmatógeno: fotopsias y moscas volantes, luego sombra o 'cortina' en un sector del campo visual.",
+   "Fondo: retina elevada, plegada y móvil, con desgarro (herradura) visible.",
+   "Es urgencia quirúrgica: la mácula desprendida marca el pronóstico visual.",
+   "Factores: miopía alta, afaquia/pseudofaquia, trauma, antecedente familiar."
+  ],
+  "trampa": "La 'cortina' es la palabra clave en la viñeta; no es ojo rojo ni dolor."
+ },
+ "Retinoblastoma": {
+  "grupo": "Fundoscopía",
+  "claves": [
+   "Leucocoria (reflejo blanco) es el signo más frecuente; también estrabismo.",
+   "Masa blanca intrarretiniana con calcificaciones en la TC.",
+   "Edad típica: menores de 3 años; bilateral en la forma hereditaria (RB1).",
+   "Referencia inmediata: riesgo de metástasis y de segundo tumor."
+  ],
+  "trampa": "En el niño, 'leucocoria' + foto con flash blanco = retinoblastoma hasta demostrar lo contrario."
+ },
+ "Retinosis pigmentaria": {
+  "grupo": "Fundoscopía",
+  "claves": [
+   "Espículas óseas periféricas, papila pálida, vasos afinados.",
+   "Ceguera nocturna y pérdida de campo periférico progresiva.",
+   "Asociaciones: sordera (Usher), obesidad y polidactilia (Bardet-Biedl)."
+  ],
+  "trampa": "La retina 'en sal y pimienta' del neonato es rubéola, no retinosis."
+ },
+ "Neuritis óptica / papila": {
+  "grupo": "Fundoscopía",
+  "claves": [
+   "Pérdida visual subaguda unilateral, dolor con los movimientos oculares, discromatopsia (rojo desaturado).",
+   "Defecto pupilar aferente relativo (Marcus Gunn).",
+   "Fondo: papila hiperémica y edematosa (en 1/3 es normal: 'neuritis retrobulbar').",
+   "Sospechar esclerosis múltiple en adulto joven; en México también neuomielitis óptica (NMO)."
+  ],
+  "trampa": "Papiledema = bilateral y sin pérdida visual temprana; neuritis óptica = unilateral, duele y baja la visión."
+ },
+ "Catarata": {
+  "grupo": "Defectos y segmento anterior",
+  "claves": [
+   "Opacidad del cristalino: pérdida visual lenta e indolora, deslumbramiento, halos.",
+   "Fondo grisáceo en la pupila (leucocoria del adulto mayor).",
+   "Causa más frecuente de ceguera reversible en el mundo.",
+   "Tratamiento: facoemulsificación + lente intraocular; no hay gotas que la reviertan."
+  ],
+  "trampa": "La catarata congénita es urgencia quirúrgica (ambliopía), no 'esperar a que crezca'."
+ },
+ "Conjuntivitis": {
+  "grupo": "Defectos y segmento anterior",
+  "claves": [
+   "Viral: ojo rojo difuso, lagrimeo acuoso, adenopatía preauricular, prurito leve, bilateral.",
+   "Bacteriana: secreción purulenta espesa, párpados pegados al despertar, unilateral o bilateral.",
+   "Alérgica: prurito intenso, quemosis, antecedente atópico, bilateral.",
+   "Visión y pupila normales; no hay dolor profundo ni fotofobia intensa."
+  ],
+  "trampa": "Dolor intenso, fotofobia y baja visual NO son conjuntivitis: piensa queratitis o uveítis."
+ },
+ "Orzuelo y chalazión": {
+  "grupo": "Defectos y segmento anterior",
+  "claves": [
+   "Orzuelo: infección aguda de glándula (Zeiss/Moll en externo, Meibomio en interno), doloroso, con punto de pus.",
+   "Chalazión: granuloma crónico de Meibomio, indoloro, nódulo duro en el tarso.",
+   "Tratamiento del orzuelo: compresas tibias + antibiótico tópico; drenaje si apunta.",
+   "Chalazión: calor local y, si persiste > 1 mes, incisión y curetaje."
+  ],
+  "trampa": "Chalazión recurrente en el mismo sitio en adulto mayor: hay que descartar carcinoma de Meibomio."
+ },
+ "Pterigión y pinguécula": {
+  "grupo": "Defectos y segmento anterior",
+  "claves": [
+   "Pterigión: tejido fibrovascular que invade la córnea desde la conjuntiva (triangular, hacia nasal).",
+   "Pinguécula: mancha amarillenta en la conjuntiva, sin invadir córnea.",
+   "Relación con exposición solar, polvo y viento.",
+   "Cirugía si invade el eje visual o causa astigmatismo."
+  ],
+  "trampa": "Si invade la córnea es pterigión; si solo está en la conjuntiva, pinguécula."
+ },
+ "Queratocono": {
+  "grupo": "Defectos y segmento anterior",
+  "claves": [
+   "Córnea en cono, adelgazamiento central, anillo de Fleischer, estrías de Vogt.",
+   "Signo de Munson (párpado inferior se deforma al mirar abajo).",
+   "Astigmatismo irregular progresivo en adolescente: sospecha alta.",
+   "Tratamiento: lentes, cross-linking para detener, trasplante en casos avanzados."
+  ],
+  "trampa": "Nunca se corrige con láser refractivo: el cross-linking es para frenar, no para quitar el cono."
+ },
+ "Contusión ocular y orbitaria": {
+  "grupo": "Defectos y segmento anterior",
+  "claves": [
+   "Signos de alarma: hipema, pupila irregular, diplopía, enoftalmos, hipoestesia infraorbitaria.",
+   "Fractura de piso de órbita: limitación de la mirada hacia arriba + diplopía.",
+   "Globo abierto: NO medir presión, NO manipular; proteger con casco y cirugía.",
+   "Hipema: reposo, evitar AINEs/aspirina, valorar por oftalmología."
+  ],
+  "trampa": "Todo trauma con sospecha de globo abierto prohíbe la tonometría; es la pregunta de siempre."
+ },
+ "Defectos refractivos": {
+  "grupo": "Defectos y segmento anterior",
+  "claves": [
+   "Miopía: imagen antes de la retina, visión lejana mala, cerca buena; se corrige con lente divergente (−).",
+   "Hipermetropía: imagen detrás de la retina, se corrige con lente convergente (+); el joven compensa.",
+   "Astigmatismo: curvatura irregular, visión borrosa en todas las distancias, lentes cilíndricos.",
+   "Presbicia: pérdida de acomodación > 40 años, se corrige con adición (+).",
+   "Longitud axial aumentada = miopía; cada dioptría de miopía eleva riesgo de desprendimiento."
+  ],
+  "trampa": "Presbicia no es hipermetropía: la presbicia es por edad y afecta la visión cercana."
+ },
+ "Estrabismo": {
+  "grupo": "Defectos y segmento anterior",
+  "claves": [
+   "Esotropía (hacia adentro) y exotropía (hacia afuera); endotropía infantil es la más común.",
+   "Estrabismo de aparición súbita en niño: descartar retinoblastoma y causas neurológicas.",
+   "En el adulto, diplopía; en el niño, supresión y ambliopía.",
+   "Tratamiento: corrección refractiva, oclusión del ojo dominante, cirugía."
+  ],
+  "trampa": "Nistagmo + estrabismo + leucocoria en lactante: no es 'solo estrabismo'."
+ },
+ "Uveítis / ojo rojo": {
+  "grupo": "Defectos y segmento anterior",
+  "claves": [
+   "Ojo rojo con dolor profundo, fotofobia, lagrimeo y visión borrosa.",
+   "Signos: hiperemia ciliar (anillo alrededor de la córnea), hipopión, sinequias.",
+   "Asociaciones: HLA-B27, sarcoidosis, tuberculosis, sífilis, enfermedad de Behçet.",
+   "Tratamiento: esteroide tópico + ciclopléjico; el antibiótico no sirve sin infección."
+  ],
+  "trampa": "Ojo rojo que duele y baja la visión nunca es conjuntivitis viral."
+ }
+}
